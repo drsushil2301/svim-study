@@ -2,99 +2,194 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SVIM Study Portal</title><style>
-body {margin:0;font-family:Arial;background:#eef1f5;}
-.header {background:#7b1e3a;color:white;padding:15px;font-size:18px;}
-.container {padding:15px;}
-.card {background:white;padding:15px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.btn {background:#7b1e3a;color:white;padding:10px;border-radius:8px;margin-top:10px;cursor:pointer;text-align:center;}
-.hidden {display:none;}
-.sidebar {position:fixed;width:200px;height:100%;background:#7b1e3a;color:white;padding-top:20px;}
-.sidebar div {padding:12px;cursor:pointer;}
-.sidebar div:hover {background:#5c142a;}
-.main {margin-left:210px;padding:15px;}
-.stat {font-size:20px;font-weight:bold;}
-</style></head><body><!-- LOGIN --><div id="loginPage">
-<div class="header">SVIM Study Portal - ATTITUDE • SKILL • KNOWLEDGE</div>
-<div class="container">
+body {margin:0;font-family:Arial;background:#f4f6f9;}
+
+/* HEADER */
+.header {
+background:#7b1e3a;
+color:white;
+padding:10px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.header img {height:40px;}
+.header-text {font-size:14px}
+
+/* LOGIN */
+.login-container {
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+height:90vh;
+}
+
+.card {
+background:white;
+padding:20px;
+border-radius:12px;
+width:90%;
+max-width:350px;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+input {
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.btn {
+background:#7b1e3a;
+color:white;
+padding:12px;
+text-align:center;
+border-radius:8px;
+margin-top:15px;
+cursor:pointer;
+}
+
+/* DASHBOARD */
+.sidebar {
+position:fixed;
+width:200px;
+height:100%;
+background:#7b1e3a;
+color:white;
+padding-top:20px;
+}
+
+.sidebar div {
+padding:12px;
+cursor:pointer;
+}
+
+.sidebar div:hover {
+background:#5c142a;
+}
+
+.main {
+margin-left:200px;
+padding:15px;
+}
+
+/* BANNER */
+.banner {
+background:url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789') center/cover;
+height:150px;
+border-radius:12px;
+margin-bottom:15px;
+display:flex;
+align-items:center;
+color:white;
+padding:10px;
+font-weight:bold;
+}
+
+/* STATS */
+.stats {
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+}
+
+.stat-box {
+background:white;
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+
+/* PAGE */
+.page {display:none;}
+.active {display:block;}
+
+</style></head><body><!-- LOGIN --><div id="loginPage"><div class="header">
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png">
+<div class="header-text">
+<b>SVIM Study Portal</b><br>
+ATTITUDE • SKILL • KNOWLEDGE
+</div>
+</div><div class="login-container">
 <div class="card">
 <h3>Login</h3>
-<input id="user" placeholder="ID (A1)" style="width:100%;padding:10px"><br><br>
-<input id="pass" type="password" placeholder="Password (1234)" style="width:100%;padding:10px"><br><br>
+<input id="user" placeholder="ID (A1)">
+<input id="pass" type="password" placeholder="Password (1234)">
 <div class="btn" onclick="login()">Login</div>
 </div>
-</div>
-</div><!-- DASHBOARD --><div id="dashboard" class="hidden"><div class="sidebar">
+</div></div><!-- DASHBOARD --><div id="dashboard" style="display:none;"><div class="sidebar">
 <div onclick="showPage('home')">Dashboard</div>
 <div onclick="showPage('qb')">Question Bank</div>
 <div onclick="showPage('quiz')">Quiz</div>
 <div onclick="showPage('practice')">Practice</div>
 <div onclick="showPage('attendance')">Attendance</div>
-</div><div class="main"><!-- HOME --><div id="home">
-<h2>Welcome 👋</h2><div class="card">
-Topics Covered: <span class="stat" id="topics">0</span>
-</div><div class="card">
-Questions Attempted: <span class="stat" id="attempted">0</span>
-</div><div class="card">
-Average Score: <span class="stat" id="avg">0%</span>
-</div></div><!-- QUESTION BANK --><div id="qb" class="hidden">
-<h2>Question Bank</h2><div class="card">
+</div><div class="main"><div class="banner">
+Welcome to SVIM Learning Platform
+</div><!-- HOME --><div id="home" class="page active">
+<h2>Dashboard</h2><div class="stats">
+<div class="stat-box">Topics<br><b>12/29</b></div>
+<div class="stat-box">Attempts<br><b id="attempts">0</b></div>
+<div class="stat-box">Score<br><b id="score">0%</b></div>
+<div class="stat-box">Tests<br><b>2</b></div>
+</div></div><!-- QUESTION BANK --><div id="qb" class="page">
+<h2>Question Bank</h2>
+<div class="card">
 <b>Unit 1</b><br>
-- Opportunity cost<br>
-- Scarcity and choice
+Opportunity Cost<br>
+Scarcity
 </div><div class="card">
 <b>Unit 2</b><br>
-- Law of demand<br>
-- Elasticity types
-</div><div class="card">
-<b>Unit 3</b><br>
-- Production function<br>
-- Cost curves
-</div></div><!-- QUIZ --><div id="quiz" class="hidden">
+Demand Law<br>
+Elasticity
+</div>
+</div><!-- QUIZ --><div id="quiz" class="page">
 <h2>Quiz</h2>
 <div id="quizBox"></div>
 <div class="btn" onclick="nextQ()">Next</div>
-</div><!-- PRACTICE --><div id="practice" class="hidden">
+</div><!-- PRACTICE --><div id="practice" class="page">
 <h2>Practice</h2>
 <div class="card">
-<b>Concept (Hinglish):</b> Demand badhne se price par pressure aata hai.<br><br>
-<b>Exam Answer (English):</b> Increase in demand results in higher equilibrium price and quantity.
+<b>Concept:</b> Demand badhne se price badhta hai.<br><br>
+<b>Exam Answer:</b> Increase in demand raises equilibrium price and quantity.
 </div>
-</div><!-- ATTENDANCE --><div id="attendance" class="hidden">
+</div><!-- ATTENDANCE --><div id="attendance" class="page">
 <h2>Attendance</h2>
 <div class="card">
-Lectures Conducted: 10<br>
-Present: <span id="present"></span><br>
-Attendance: <span id="att"></span>%<br>
-<div id="warning"></div>
+Present: 7 / 10<br>
+Attendance: 70%<br>
+<span style="color:red;">Below 75%</span>
 </div>
 </div></div>
 </div><script>
 
-let present = 7;
-let total = 10;
+let qIndex = 0;
+let score = 0;
+let attempts = 0;
 
 let questions = [
-{q:"If demand increases sharply, it is:",a:["Elastic","Inelastic","Unitary"],c:0},
-{q:"Opportunity cost is:",a:["Total cost","Next best alternative","Profit"],c:1}
+{q:"Demand increases when?",a:["Price rises","Income rises","Tax rises"],c:1},
+{q:"Elastic demand means?",a:["Less change","More change","No change"],c:1}
 ];
 
-let current=0;
-let score=0;
-let attempts=0;
-
 function renderQ(){
-let q=questions[current];
-let html="<div class='card'><b>"+q.q+"</b><br><br>";
+let q = questions[qIndex];
+let html = "<div class='card'><b>"+q.q+"</b><br><br>";
+
 q.a.forEach((opt,i)=>{
-html+="<div class='btn' onclick='check("+i+")'>"+opt+"</div>";
+html += "<div class='btn' onclick='check("+i+")'>"+opt+"</div>";
 });
-html+="</div>";
-document.getElementById("quizBox").innerHTML=html;
+
+html += "</div>";
+document.getElementById("quizBox").innerHTML = html;
 }
 
 function check(i){
 attempts++;
-if(i==questions[current].c){
+if(i==questions[qIndex].c){
 score++;
 alert("Correct");
 }else{
@@ -104,171 +199,35 @@ updateStats();
 }
 
 function nextQ(){
-current++;
-if(current>=questions.length){
-alert("Quiz Completed. Score: "+score);
-current=0;
-score=0;
+qIndex++;
+if(qIndex>=questions.length){
+alert("Quiz Completed");
+qIndex=0;
 }
 renderQ();
 }
 
 function updateStats(){
-document.getElementById("attempted").innerText=attempts;
-let avg = attempts ? Math.round((score/attempts)*100) : 0;
-document.getElementById("avg").innerText=avg+"%";
+document.getElementById("attempts").innerText = attempts;
+let avg = Math.round((score/attempts)*100);
+document.getElementById("score").innerText = avg+"%";
 }
 
 function login(){
-let p=document.getElementById("pass").value;
+let p = document.getElementById("pass").value;
 if(p==="1234"){
 document.getElementById("loginPage").style.display="none";
 document.getElementById("dashboard").style.display="block";
 renderQ();
-loadAttendance();
 }else{
 alert("Invalid");
 }
 }
 
-function loadAttendance(){
-document.getElementById("present").innerText=present;
-let percent=Math.round((present/total)*100);
-document.getElementById("att").innerText=percent;
-
-if(percent<75){
-document.getElementById("warning").innerHTML="<span style='color:red'>Below 75%</span>";
-}
-}
-
 function showPage(page){
-let pages=["home","qb","quiz","practice","attendance"];
-pages.forEach(p=>document.getElementById(p).classList.add("hidden"));
-document.getElementById(page).classList.remove("hidden");
-}
-
-</script></body>
-</html><div class="card">Questions Attempted: 45</div>
-<div class="card">Mock Tests: 2</div>
-<div class="card">Average Score: 68%</div>
-</div><!-- QUESTION BANK --><div id="qb" class="hidden">
-<h2>Question Bank</h2><div class="card">
-<b>Unit 1: Basic Concepts</b><br>
-- What is opportunity cost?<br>
-- Explain scarcity and choice.<br>
-</div><div class="card">
-<b>Unit 2: Demand & Supply</b><br>
-- Explain law of demand.<br>
-- Types of elasticity.<br>
-</div><div class="card">
-<b>Unit 3: Production & Cost</b><br>
-- Law of diminishing returns.<br>
-- Short run vs long run cost.<br>
-</div></div><!-- QUIZ --><div id="quiz" class="hidden">
-<h2>Quiz</h2>
-<div id="quizBox"></div>
-<div class="btn" onclick="nextQ()">Next</div>
-</div><!-- PRACTICE --><div id="practice" class="hidden">
-<h2>Practice</h2>
-<div class="card">
-<b>Concept (Hinglish):</b> Demand badhne par price par upward pressure aata hai.<br><br>
-<b>Exam Answer (English):</b> Increase in demand leads to higher equilibrium price and quantity.
-</div>
-</div><!-- ATTENDANCE --><div id="attendance" class="hidden">
-<h2>Attendance</h2>
-<div class="card">Attendance: 72% (Below 75% warning)</div>
-</div></div>
-</div><script>
-
-let questions = [
-{q:"If price falls and demand rises significantly, demand is:",a:["Elastic","Inelastic","Unitary"],c:0},
-{q:"Opportunity cost means:",a:["Money cost","Next best alternative","Profit"],c:1}
-];
-
-let current = 0;
-let score = 0;
-
-function renderQ(){
-let q = questions[current];
-let html = "<div class='card'><b>"+q.q+"</b><br><br>";
-q.a.forEach((opt,i)=>{
-html += "<div class='btn' onclick='check("+i+")'>"+opt+"</div>";
-});
-html += "</div>";
-document.getElementById("quizBox").innerHTML = html;
-}
-
-function check(i){
-if(i==questions[current].c){
-alert("Correct");
-score++;
-}else{
-alert("Wrong");
-}
-}
-
-function nextQ(){
-current++;
-if(current >= questions.length){
-alert("Quiz Completed. Score: "+score);
-current = 0;
-score = 0;
-}
-renderQ();
-}
-
-function login(){
-let p = document.getElementById("pass").value;
-if(p==="1234"){
-document.getElementById("loginPage").style.display="none";
-document.getElementById("dashboard").style.display="block";
-renderQ();
-}else{
-alert("Invalid login");
-}
-}
-
-function showPage(page){
-let pages = ["home","qb","quiz","practice","attendance"];
-pages.forEach(p => document.getElementById(p).classList.add("hidden"));
-document.getElementById(page).classList.remove("hidden");
-}
-
-</script></body>
-</html><div class="card">Average Score: 72%</div>
-</div><!-- QUESTION BANK --><div id="qb" class="hidden">
-<h2>Question Bank</h2>
-<div class="card">Explain demand and supply.</div>
-<div class="card">Types of elasticity.</div>
-</div><!-- QUIZ --><div id="quiz" class="hidden">
-<h2>Quiz</h2>
-<div class="card">Q: Demand increases when?</div>
-<div class="btn">Take Quiz</div>
-</div><!-- PRACTICE --><div id="practice" class="hidden">
-<h2>Practice</h2>
-<div class="card">Case-based question here.</div>
-</div><!-- ATTENDANCE --><div id="attendance" class="hidden">
-<h2>Attendance</h2>
-<div class="card">Attendance: 72%</div>
-</div></div>
-</div><script>
-
-function login(){
-let u = document.getElementById("user").value;
-let p = document.getElementById("pass").value;
-
-if(p==="1234"){
-document.getElementById("loginPage").style.display="none";
-document.getElementById("dashboard").style.display="block";
-}else{
-alert("Invalid login");
-}
-}
-
-function showPage(page){
-let pages = ["home","qb","quiz","practice","attendance"];
-pages.forEach(p => document.getElementById(p).classList.add("hidden"));
-document.getElementById(page).classList.remove("hidden");
+let pages = document.querySelectorAll(".page");
+pages.forEach(p=>p.classList.remove("active"));
+document.getElementById(page).classList.add("active");
 }
 
 </script></body>
