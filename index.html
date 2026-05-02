@@ -3,7 +3,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SVIM Study Portal</title><style>
 body {margin:0;font-family:Arial;background:#f4f6f9;}
-.header {background:#7b1e3a;color:white;padding:15px;font-size:20px;}
+.header {background:#7b1e3a;color:white;padding:15px;}
+.header h2 {margin:0;}
 .container {padding:15px;}
 .card {background:white;padding:15px;border-radius:10px;margin-bottom:15px;}
 .btn {background:#7b1e3a;color:white;padding:12px;text-align:center;border-radius:8px;margin-top:10px;cursor:pointer;}
@@ -13,8 +14,10 @@ body {margin:0;font-family:Arial;background:#f4f6f9;}
 .sidebar div:hover {background:#5c142a;}
 .main {margin-left:210px;padding:15px;}
 </style></head><body><!-- LOGIN --><div id="loginPage">
-<div class="header">SVIM Study Portal</div>
-<div class="container">
+<div class="header">
+<h2>SVIM Study Portal</h2>
+<p>ATTITUDE • SKILL • KNOWLEDGE</p>
+</div><div class="container">
 <div class="card">
 <h3>Login</h3>
 <input id="user" placeholder="Enter ID (A1)" style="width:100%;padding:10px"><br><br>
@@ -22,8 +25,7 @@ body {margin:0;font-family:Arial;background:#f4f6f9;}
 <div class="btn" onclick="login()">Login</div>
 </div>
 </div>
-</div><!-- DASHBOARD --><div id="dashboard" class="hidden">
-<div class="sidebar">
+</div><!-- DASHBOARD --><div id="dashboard" class="hidden"><div class="sidebar">
 <div onclick="showPage('home')">Dashboard</div>
 <div onclick="showPage('qb')">Question Bank</div>
 <div onclick="showPage('quiz')">Quiz</div>
@@ -32,9 +34,94 @@ body {margin:0;font-family:Arial;background:#f4f6f9;}
 </div><div class="main"><!-- HOME --><div id="home">
 <h2>Welcome Student 👋</h2>
 <div class="card">Topics Covered: 12 / 29</div>
-<div class="card">Practice Questions: 156</div>
-<div class="card">Mock Tests: 4</div>
-<div class="card">Average Score: 72%</div>
+<div class="card">Questions Attempted: 45</div>
+<div class="card">Mock Tests: 2</div>
+<div class="card">Average Score: 68%</div>
+</div><!-- QUESTION BANK --><div id="qb" class="hidden">
+<h2>Question Bank</h2><div class="card">
+<b>Unit 1: Basic Concepts</b><br>
+- What is opportunity cost?<br>
+- Explain scarcity and choice.<br>
+</div><div class="card">
+<b>Unit 2: Demand & Supply</b><br>
+- Explain law of demand.<br>
+- Types of elasticity.<br>
+</div><div class="card">
+<b>Unit 3: Production & Cost</b><br>
+- Law of diminishing returns.<br>
+- Short run vs long run cost.<br>
+</div></div><!-- QUIZ --><div id="quiz" class="hidden">
+<h2>Quiz</h2>
+<div id="quizBox"></div>
+<div class="btn" onclick="nextQ()">Next</div>
+</div><!-- PRACTICE --><div id="practice" class="hidden">
+<h2>Practice</h2>
+<div class="card">
+<b>Concept (Hinglish):</b> Demand badhne par price par upward pressure aata hai.<br><br>
+<b>Exam Answer (English):</b> Increase in demand leads to higher equilibrium price and quantity.
+</div>
+</div><!-- ATTENDANCE --><div id="attendance" class="hidden">
+<h2>Attendance</h2>
+<div class="card">Attendance: 72% (Below 75% warning)</div>
+</div></div>
+</div><script>
+
+let questions = [
+{q:"If price falls and demand rises significantly, demand is:",a:["Elastic","Inelastic","Unitary"],c:0},
+{q:"Opportunity cost means:",a:["Money cost","Next best alternative","Profit"],c:1}
+];
+
+let current = 0;
+let score = 0;
+
+function renderQ(){
+let q = questions[current];
+let html = "<div class='card'><b>"+q.q+"</b><br><br>";
+q.a.forEach((opt,i)=>{
+html += "<div class='btn' onclick='check("+i+")'>"+opt+"</div>";
+});
+html += "</div>";
+document.getElementById("quizBox").innerHTML = html;
+}
+
+function check(i){
+if(i==questions[current].c){
+alert("Correct");
+score++;
+}else{
+alert("Wrong");
+}
+}
+
+function nextQ(){
+current++;
+if(current >= questions.length){
+alert("Quiz Completed. Score: "+score);
+current = 0;
+score = 0;
+}
+renderQ();
+}
+
+function login(){
+let p = document.getElementById("pass").value;
+if(p==="1234"){
+document.getElementById("loginPage").style.display="none";
+document.getElementById("dashboard").style.display="block";
+renderQ();
+}else{
+alert("Invalid login");
+}
+}
+
+function showPage(page){
+let pages = ["home","qb","quiz","practice","attendance"];
+pages.forEach(p => document.getElementById(p).classList.add("hidden"));
+document.getElementById(page).classList.remove("hidden");
+}
+
+</script></body>
+</html><div class="card">Average Score: 72%</div>
 </div><!-- QUESTION BANK --><div id="qb" class="hidden">
 <h2>Question Bank</h2>
 <div class="card">Explain demand and supply.</div>
